@@ -9,7 +9,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
   );
 
   return (
-    <div className="space-y-4 ">
+    <div className="space-y-4">
       <RecordModal />
       <div class={"flex justify-end"}>
         <button onClick={() => openExerciseModal()}>Add exercise</button>
@@ -30,17 +30,22 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
             {new Date(exercise.lastModified).toLocaleString()}
           </p>
           <div>
-            {exercise.records.map((record, recordIndex) => (
-              <div
-                key={recordIndex}
-                class={"flex justify-between items-center"}
-              >
-                <p>
-                  {new Date(record.date).toLocaleDateString()} - {record.weight}{" "}
-                  kg - {record.reps} reps
-                </p>
-              </div>
-            ))}
+            {[...exercise.records]
+              .sort(
+                (a, b) =>
+                  new Date(b.date).getTime() - new Date(a.date).getTime()
+              )
+              .map((record, recordIndex) => (
+                <div
+                  key={recordIndex}
+                  class={"flex justify-between items-center"}
+                >
+                  <p>
+                    {new Date(record.date).toLocaleDateString()} -{" "}
+                    {record.weight} kg - {record.reps} reps
+                  </p>
+                </div>
+              ))}
           </div>
           <div className="mt-2 flex flex-wrap space-x-2">
             {exercise.tags.map((tag, tagIndex) => (
