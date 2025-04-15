@@ -1,37 +1,42 @@
 import { signal } from "@preact/signals";
 import { appData } from "../app";
-import { recordModal } from "../screens/Dashboard";
 
+const isOpen = signal(false);
+
+const name = signal("");
 const date = signal(new Date().toISOString().split("T")[0]);
 const weight = signal(0);
 const reps = signal(0);
 
-export function AddRecordModal() {
+export const openRecordModal = (exerciseName: string, maxWeight: number) => {
+  isOpen.value = true;
+  name.value = exerciseName;
+  weight.value = maxWeight;
+};
+
+export function RecordModal() {
   const handleAddRecord = () => {
-    const exercise = appData.value.find(
-      (ex) => ex.name === recordModal.value.name
-    );
+    const exercise = appData.value.find((ex) => ex.name === name.value);
     if (exercise) {
       exercise.records.push({
         date: new Date(date.value + "T00:00:00"),
         weight: weight.value,
         reps: reps.value,
-        name: recordModal.value.name,
+        name: name.value,
       });
       exercise.lastModified = new Date();
       exercise.maxWeight = Math.max(exercise.maxWeight, weight.value);
 
       localStorage.setItem("myAppData", JSON.stringify(appData.value));
     }
-    recordModal.value = { ...recordModal.value, isOpen: false };
+    isOpen.value = false;
   };
-  console.log(recordModal.value);
 
   return (
     <div
       id="modal-background"
       class={`fixed inset-0 z-10 bg-[rgba(0,0,0,0.8)]  ${
-        recordModal.value.isOpen ? "" : "hidden pointer-events-none"
+        isOpen.value ? "" : "hidden pointer-events-none"
       }`}
     >
       <div class="fixed inset-0 z-20 flex items-center justify-center">
@@ -40,7 +45,7 @@ export function AddRecordModal() {
             <h2 class="text-2xl font-bold mb-4">Add record</h2>
             <button
               onClick={() => {
-                recordModal.value = { ...recordModal.value, isOpen: false };
+                isOpen.value = false;
                 console.log("Closigng modal");
               }}
             >

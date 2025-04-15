@@ -1,10 +1,13 @@
-import { signal, Signal } from "@preact/signals";
+import { signal } from "@preact/signals";
 import { appData } from "../app";
 
+const isOpen = signal(false);
 const name = signal("");
 const tags = signal<string[]>([]);
 
-export function AddExerciseModal({ isOpen }: { isOpen: Signal<boolean> }) {
+export const openExerciseModal = () => (isOpen.value = true);
+
+export function ExerciseModal() {
   const handleAddExercise = () => {
     appData.value = [
       ...appData.value,
