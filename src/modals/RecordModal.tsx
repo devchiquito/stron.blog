@@ -42,7 +42,7 @@ export function RecordModal() {
       <div class="fixed inset-0 z-20 flex items-center justify-center">
         <div class="w-full max-w-md p-6 bg-zinc-800 rounded-lg shadow-lg">
           <div class="flex justify-between mb-4">
-            <h2 class="text-2xl font-bold mb-4">Add record</h2>
+            <h2 class="text-2xl font-bold mb-4">{name.value}</h2>
             <button
               onClick={() => {
                 isOpen.value = false;
