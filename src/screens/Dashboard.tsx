@@ -2,6 +2,7 @@ import { signal } from "@preact/signals";
 import { Exercise } from "../interfaces/Exercise";
 import { AddExerciseModal } from "../modals/AddExercise";
 import { AddRecordModal } from "../modals/AddRecord";
+import { appData } from "../app";
 
 const isOpenAddExerciseModal = signal(false);
 export const recordModal = signal({
@@ -18,6 +19,12 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
       maxWeight,
     };
   };
+
+  const sortedExercises = [...exercises].sort(
+    (a, b) =>
+      new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
+  );
+
   return (
     <div className="space-y-4 ">
       <AddRecordModal />
@@ -27,7 +34,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
         </button>
         <AddExerciseModal isOpen={isOpenAddExerciseModal} />
       </div>
-      {exercises.map((exercise, index) => (
+      {sortedExercises.map((exercise, index) => (
         <button key={index} className="p-4 bg-white shadow rounded-lg w-full">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold">{exercise.name}</h2>
@@ -39,15 +46,34 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
           </div>
           <p class={"text-zinc-400"}>
             Max: {exercise.maxWeight} kg - Last modified:{" "}
-            {new Date(exercise.lastModified).toLocaleDateString()}
+            {new Date(exercise.lastModified).toLocaleString()}
           </p>
           <div>
             {exercise.records.map((record, recordIndex) => (
-              <div key={recordIndex}>
+              <div
+                key={recordIndex}
+                class={"flex justify-between items-center"}
+              >
                 <p>
                   {new Date(record.date).toLocaleDateString()} - {record.weight}{" "}
                   kg - {record.reps} reps
                 </p>
+                <button
+                  onClick={() => {
+                    exercise.records = exercise.records.filter(
+                      (r) => r !== record
+                    );
+                    localStorage.setItem(
+                      "myAppData",
+                      JSON.stringify(appData.value)
+                    );
+
+                    //relaod
+                    window.location.reload();
+                  }}
+                >
+                  Delete record
+                </button>
               </div>
             ))}
           </div>
@@ -61,6 +87,16 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
               </span>
             ))}
           </div>
+          <button
+            onClick={() => {
+              appData.value = appData.value.filter(
+                (ex) => ex.name !== exercise.name
+              );
+              localStorage.setItem("myAppData", JSON.stringify(appData.value));
+            }}
+          >
+            Delete exercise
+          </button>
         </button>
       ))}
     </div>

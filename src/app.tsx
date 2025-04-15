@@ -5,14 +5,11 @@ import { Exercise } from "./interfaces/Exercise";
 import { Settings } from "./screens/Settings";
 
 const screen = signal("Dashboard");
-const savedData = localStorage.getItem("myAppData");
-const defaultData: Exercise[] = [];
 
+const localStorageData = localStorage.getItem("myAppData");
 export const appData = signal<Exercise[]>(
-  savedData ? JSON.parse(savedData) : defaultData
+  localStorageData ? JSON.parse(localStorageData) : []
 );
-
-// 👉 Guardar automáticamente cada vez que cambie
 effect(() => {
   localStorage.setItem("myAppData", JSON.stringify(appData.value));
 });
@@ -20,7 +17,8 @@ effect(() => {
 export function App() {
   return (
     <>
-      <h1 class="text-3   xl font-bold underline">{screen}</h1>
+      <header class="p-3 border-b border-zinc-700 font-bold">STRON.BLOG</header>
+      <p class="text-3  text-center p-5 xl font-bold underline">{screen}</p>
 
       <div class={"flex justify-center p-5 pb-24"}>
         {screen.value === "Dashboard" ? (

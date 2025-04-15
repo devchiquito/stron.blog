@@ -21,7 +21,6 @@ export function AddExerciseModal({ isOpen }: { isOpen: Signal<boolean> }) {
 
   return (
     <div
-      id="modal-background"
       class={`fixed inset-0 z-10 bg-black bg-opacity-50 transition-opacity ${
         isOpen.value ? "" : "hidden pointer-events-none"
       }
@@ -33,7 +32,12 @@ export function AddExerciseModal({ isOpen }: { isOpen: Signal<boolean> }) {
             <h2 class="text-2xl font-bold mb-4">Add exercise</h2>
             <button onClick={() => (isOpen.value = false)}>X</button>
           </div>
-          <form class="space-y-4">
+          <form
+            class="space-y-4"
+            onSubmit={() => {
+              handleAddExercise();
+            }}
+          >
             <label class="block" htmlFor="name">
               Name
               <input
@@ -62,9 +66,8 @@ export function AddExerciseModal({ isOpen }: { isOpen: Signal<boolean> }) {
             </label>
             <div class="flex justify-end">
               <button
-                type="button"
+                type="submit"
                 class="px-4 py-2 text-white bg-primary-600 rounded-md hover:bg-primary-700"
-                onClick={handleAddExercise}
               >
                 Add
               </button>
