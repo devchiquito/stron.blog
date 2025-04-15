@@ -24,7 +24,7 @@ export function App() {
         {screen.value === "Dashboard" ? (
           <Dashboard exercises={appData.value} />
         ) : screen.value === "History" ? (
-          <History records={[]} />
+          <History />
         ) : (
           <Settings />
         )}

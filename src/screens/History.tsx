@@ -1,16 +1,32 @@
-import { Record } from "../interfaces/Record";
+import { appData } from "../app";
 
-export function History({ records }: { records: Record[] }) {
+export function History() {
+  const allRecords = appData.value
+    .flatMap((exercise) => exercise.records)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  console.log(allRecords);
   return (
-    <ul class="space-y-2">
-      {records.map((record, index) => (
-        <li key={index} class="flex justify-between">
-          <span class="font-bold">{record.name}</span>
-          <span>
-            {record.reps} reps @ {record.weight}kg
-          </span>
-        </li>
-      ))}
-    </ul>
+    <table class="table-auto w-full">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Exercise</th>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Weight</th>
+          <th class="px-4 py-2">Reps</th>
+        </tr>
+      </thead>
+      <tbody>
+        {allRecords.map((record) => (
+          <tr class="hover:bg-gray-100">
+            <td class="border px-4 py-2">{record.name}</td>
+            <td class="border px-4 py-2">
+              {new Date(record.date).toLocaleString()}
+            </td>
+            <td class="border px-4 py-2">{record.weight} kg</td>
+            <td class="border px-4 py-2">{record.reps}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

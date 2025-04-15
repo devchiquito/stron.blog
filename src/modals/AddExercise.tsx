@@ -21,7 +21,7 @@ export function AddExerciseModal({ isOpen }: { isOpen: Signal<boolean> }) {
 
   return (
     <div
-      class={`fixed inset-0 z-10 bg-black bg-opacity-50 transition-opacity ${
+      class={`fixed inset-0 z-10 bg-[rgba(0,0,0,0.8)] ${
         isOpen.value ? "" : "hidden pointer-events-none"
       }
       }`}
