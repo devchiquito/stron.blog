@@ -49,7 +49,7 @@ export function AddRecordModal() {
           </div>
           <form
             class="space-y-4"
-            onSubmit={(e) => {
+            onSubmit={() => {
               handleAddRecord();
             }}
           >
