@@ -5,4 +5,5 @@ export interface Exercise {
   tags: string[];
   records: Record[];
   lastModified: Date;
+  maxWeight: number;
 }

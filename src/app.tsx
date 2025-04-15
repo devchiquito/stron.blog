@@ -1,14 +1,32 @@
-import { signal } from "@preact/signals";
+import { effect, signal } from "@preact/signals";
 import { Dashboard } from "./screens/Dashboard";
 import { History } from "./screens/History";
+import { Exercise } from "./interfaces/Exercise";
+
 const screen = signal("Dashboard");
+const savedData = localStorage.getItem("myAppData");
+const defaultData: Exercise[] = [];
+
+export const appData = signal<Exercise[]>(
+  savedData ? JSON.parse(savedData) : defaultData
+);
+
+// 👉 Guardar automáticamente cada vez que cambie
+effect(() => {
+  localStorage.setItem("myAppData", JSON.stringify(appData.value));
+});
 
 export function App() {
   return (
     <>
       <h1 class="text-3   xl font-bold underline">{screen}</h1>
-      <div class={"flex justify-center p-5"}>
-        {screen.value === "Dashboard" ? <Dashboard /> : <History />}
+
+      <div class={"flex justify-center p-5 pb-24"}>
+        {screen.value === "Dashboard" ? (
+          <Dashboard exercises={appData.value} />
+        ) : (
+          <History records={[]} />
+        )}
       </div>
       <div class="fixed bottom-0 left-0 right-0 flex w-full justify-around p-4 bg-zinc-900 text-white">
         <button

@@ -1,32 +1,52 @@
+import { signal } from "@preact/signals";
 import { Exercise } from "../interfaces/Exercise";
+import { AddExerciseModal } from "../modals/AddExercise";
+import { AddRecordModal } from "../modals/AddRecord";
 
-const exercises: Exercise[] = [
-  {
-    name: "Push-up",
-    tags: ["Strength", "Upper body"],
-    records: [],
-    lastModified: new Date(),
-  },
-  {
-    name: "Squat",
-    tags: ["Strength", "Lower body"],
-    records: [],
-    lastModified: new Date(),
-  },
-  {
-    name: "Plank",
-    tags: ["Core", "Endurance"],
-    records: [],
-    lastModified: new Date(),
-  },
-];
+const isOpenAddExerciseModal = signal(false);
+export const recordModal = signal({
+  isOpen: false,
+  name: "",
+  maxWeight: 0,
+});
 
-export function Dashboard() {
+export function Dashboard({ exercises }: { exercises: Exercise[] }) {
+  const openRecordModal = (name: string, maxWeight: number) => {
+    recordModal.value = {
+      isOpen: true,
+      name,
+      maxWeight,
+    };
+  };
   return (
     <div className="space-y-4 ">
+      <AddRecordModal />
+      <div class={"flex justify-end"}>
+        <button onClick={() => (isOpenAddExerciseModal.value = true)}>
+          Add exercise
+        </button>
+        <AddExerciseModal isOpen={isOpenAddExerciseModal} />
+      </div>
       {exercises.map((exercise, index) => (
         <button key={index} className="p-4 bg-white shadow rounded-lg w-full">
-          <h2 className="text-xl font-bold">{exercise.name}</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-bold">{exercise.name}</h2>
+            <button
+              onClick={() => openRecordModal(exercise.name, exercise.maxWeight)}
+            >
+              Add record
+            </button>
+          </div>
+          <div>
+            {exercise.records.map((record, recordIndex) => (
+              <div key={recordIndex}>
+                <p>
+                  {new Date(record.date).toLocaleDateString()} - {record.weight}{" "}
+                  kg - {record.reps} reps
+                </p>
+              </div>
+            ))}
+          </div>
           <div className="mt-2 flex flex-wrap space-x-2">
             {exercise.tags.map((tag, tagIndex) => (
               <span
