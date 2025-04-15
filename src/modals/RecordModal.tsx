@@ -4,7 +4,7 @@ import { appData } from "../app";
 const isOpen = signal(false);
 
 const name = signal("");
-const date = signal(new Date().toISOString().split("T")[0]);
+const date = signal(new Date());
 const weight = signal(0);
 const reps = signal(0);
 
@@ -19,7 +19,7 @@ export function RecordModal() {
     const exercise = appData.value.find((ex) => ex.name === name.value);
     if (exercise) {
       exercise.records.push({
-        date: new Date(date.value + "T00:00:00"),
+        date: new Date(date.value),
         weight: weight.value,
         reps: reps.value,
         name: name.value,
@@ -65,9 +65,9 @@ export function RecordModal() {
                 id="date"
                 required
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                value={date.value}
+                value={date.value.toISOString().split("T")[0]}
                 onInput={(e) =>
-                  (date.value = (e.target as HTMLInputElement).value)
+                  (date.value = new Date((e.target as HTMLInputElement).value))
                 }
               />
             </label>
