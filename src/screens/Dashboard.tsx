@@ -18,17 +18,22 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
       {sortedExercises.map((exercise, index) => (
         <button key={index} className="p-4 bg-white shadow rounded-lg w-full">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold">{exercise.name}</h2>
+            <div class={"flex gap-2 items-center"}>
+              <h2 className="text-xl font-bold">{exercise.name} </h2>
+              <span
+                class={
+                  "text-lime-400 text-[9px] border border-lime-400 rounded p-1"
+                }
+              >
+                Max {exercise.maxWeight}
+              </span>
+            </div>
             <button
               onClick={() => openRecordModal(exercise.name, exercise.maxWeight)}
             >
               Add record
             </button>
           </div>
-          <p class={"text-zinc-400"}>
-            Max: {exercise.maxWeight} kg - Last modified:{" "}
-            {new Date(exercise.lastModified).toLocaleString()}
-          </p>
           <div>
             {[...exercise.records]
               .sort(
@@ -57,6 +62,9 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
               </span>
             ))}
           </div>
+          <span class={"text-zinc-400 text-xs"}>
+            Last modified: {new Date(exercise.lastModified).toLocaleString()}
+          </span>
         </button>
       ))}
     </div>
