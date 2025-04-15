@@ -75,6 +75,7 @@ export function RecordModal() {
               Weight
               <input
                 type="number"
+                step="any"
                 id="weight"
                 required
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
