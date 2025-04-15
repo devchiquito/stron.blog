@@ -13,7 +13,7 @@ export function AddRecordModal() {
     );
     if (exercise) {
       exercise.records.push({
-        date: new Date(date.value),
+        date: new Date(date.value + "T00:00:00"),
         weight: weight.value,
         reps: reps.value,
         name: recordModal.value.name,
@@ -23,8 +23,9 @@ export function AddRecordModal() {
 
       localStorage.setItem("myAppData", JSON.stringify(appData.value));
     }
-    recordModal.value.isOpen = false;
+    recordModal.value = { ...recordModal.value, isOpen: false };
   };
+  console.log(recordModal.value);
 
   return (
     <div
@@ -37,14 +38,18 @@ export function AddRecordModal() {
         <div class="w-full max-w-md p-6 bg-zinc-800 rounded-lg shadow-lg">
           <div class="flex justify-between mb-4">
             <h2 class="text-2xl font-bold mb-4">Add record</h2>
-            <button onClick={() => (recordModal.value.isOpen = false)}>
+            <button
+              onClick={() => {
+                recordModal.value = { ...recordModal.value, isOpen: false };
+                console.log("Closigng modal");
+              }}
+            >
               X
             </button>
           </div>
           <form
             class="space-y-4"
             onSubmit={(e) => {
-              e.preventDefault();
               handleAddRecord();
             }}
           >

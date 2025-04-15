@@ -37,6 +37,10 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
               Add record
             </button>
           </div>
+          <p class={"text-zinc-400"}>
+            Max: {exercise.maxWeight} kg - Last modified:{" "}
+            {new Date(exercise.lastModified).toLocaleDateString()}
+          </p>
           <div>
             {exercise.records.map((record, recordIndex) => (
               <div key={recordIndex}>
