@@ -19,7 +19,7 @@ export function Settings() {
   return (
     <>
       <div class="grid gap-4 w-full">
-        <button onClick={() => showExercises.value != showExercises.value}>
+        <button onClick={() => (showExercises.value = !showExercises.value)}>
           Delete exercises
         </button>
         {showExercises.value && (
