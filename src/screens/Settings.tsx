@@ -1,5 +1,6 @@
 import { signal } from "@preact/signals";
 import { appData } from "../app";
+import { SettingsJSONEdit } from "../components/SettingsJSONEdit";
 
 const showSureButton = signal(false);
 const showExercises = signal(false);
@@ -73,6 +74,7 @@ export function Settings() {
         <button onClick={() => (showSureButton.value = true)}>
           Delete all data
         </button>
+        <SettingsJSONEdit />
       </div>
       {showSureButton.value && (
         <div
