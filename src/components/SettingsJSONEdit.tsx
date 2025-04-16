@@ -14,7 +14,7 @@ const handleShowSureButton = () => {
 
 export function SettingsJSONEdit() {
   return (
-    <div class="p-4 w-full min-w-3xl">
+    <div class="p-4 w-full min-w-[300px]">
       <h2 class="text-2xl font-bold mb-4">Edit app data</h2>
       <textarea
         class="w-full p-2 mb-4"
