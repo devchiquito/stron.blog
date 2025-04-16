@@ -1,6 +1,6 @@
 import { RecordsSection } from "../components/RecordsSection";
 import { Exercise } from "../interfaces/Exercise";
-import { ExerciseModal, openExerciseModal } from "../modals/ExerciseModal";
+import { openExerciseModal } from "../modals/ExerciseModal";
 import { openRecordModal, RecordModal } from "../modals/RecordModal";
 
 export function Dashboard({ exercises }: { exercises: Exercise[] }) {
