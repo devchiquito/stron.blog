@@ -22,6 +22,7 @@ const handleAddRecord = () => {
       weight: weight.value,
       reps: reps.value,
       name: name.value,
+      id: crypto.randomUUID(),
     });
     exercise.lastModified = new Date();
     exercise.maxWeight = Math.max(exercise.maxWeight, weight.value);

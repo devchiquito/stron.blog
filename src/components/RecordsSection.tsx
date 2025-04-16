@@ -25,8 +25,6 @@ export const RecordsSection = ({ records }: { records: Record[] }) => {
   // Filtrar el objeto para obtener solo los mejores records por día como array
   const bestRecordsArray = Object.values(bestRecordsByDay);
 
-  console.log("Mejores records por día:");
-  console.log(bestRecordsArray);
   return (
     <div class={"my-4"}>
       <RecordsChart bestRecordsArray={bestRecordsArray} />

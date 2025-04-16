@@ -6,4 +6,5 @@ export interface Exercise {
   records: Record[];
   lastModified: Date;
   maxWeight: number;
+  id: string;
 }

@@ -3,4 +3,5 @@ export interface Record {
   name: string;
   reps: number;
   weight: number;
+  id: string;
 }

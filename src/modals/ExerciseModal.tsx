@@ -17,6 +17,7 @@ export function ExerciseModal() {
         records: [],
         lastModified: new Date(),
         maxWeight: 0,
+        id: crypto.randomUUID(),
       },
     ];
     isOpen.value = false;

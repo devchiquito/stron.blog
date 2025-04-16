@@ -15,6 +15,25 @@ const deleteExercise = () => {
   window.location.reload();
 };
 
+const asignarIdsaLosEjercicios = () => {
+  const result = appData.value.map((ex) => ({
+    ...ex,
+    id: crypto.randomUUID(),
+  }));
+  appData.value = result;
+};
+
+const asignarIdsaLosrecordsEjercicios = () => {
+  const result = appData.value.map((ex) => ({
+    ...ex,
+    records: ex.records.map((record) => ({
+      ...record,
+      id: crypto.randomUUID(),
+    })),
+  }));
+  appData.value = result;
+};
+
 export function Settings() {
   return (
     <>
@@ -70,38 +89,45 @@ export function Settings() {
             </div>
           </div>
         )}
-
         <button onClick={() => (showSureButton.value = true)}>
           Delete all data
         </button>
-        <SettingsJSONEdit />
-      </div>
-      {showSureButton.value && (
-        <div
-          class="fixed inset-0 z-10 bg-[rgba(0,0,0,0.8)] flex items-center justify-center"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div class="bg-zinc-800 rounded-lg p-4">
-            <div class={"flex justify-between mb-4 items-center"}>
-              <p class="font-bold text-lg">Are you sure?</p>
-              <button onClick={() => (showSureButton.value = false)}>X</button>
+        {showSureButton.value && (
+          <div
+            class="fixed inset-0 z-10 bg-[rgba(0,0,0,0.8)] flex items-center justify-center"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div class="bg-zinc-800 rounded-lg p-4">
+              <div class={"flex justify-between mb-4 items-center"}>
+                <p class="font-bold text-lg">Are you sure?</p>
+                <button onClick={() => (showSureButton.value = false)}>
+                  X
+                </button>
+              </div>
+              <p class="my-4">
+                This action will delete all your data and it can't be undone.
+              </p>
+              <button
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => {
+                  localStorage.removeItem("myAppData");
+                  window.location.reload();
+                }}
+              >
+                Sure?
+              </button>
             </div>
-            <p class="my-4">
-              This action will delete all your data and it can't be undone.
-            </p>
-            <button
-              class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => {
-                localStorage.removeItem("myAppData");
-                window.location.reload();
-              }}
-            >
-              Sure?
-            </button>
           </div>
-        </div>
-      )}
+        )}
+        <SettingsJSONEdit />
+        <button onClick={() => asignarIdsaLosEjercicios()}>
+          asignar ids a los ejercicios
+        </button>{" "}
+        <button onClick={() => asignarIdsaLosrecordsEjercicios()}>
+          asignar ids a los records de los ejercicios
+        </button>
+      </div>
     </>
   );
 }
