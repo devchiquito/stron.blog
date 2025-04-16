@@ -61,6 +61,7 @@ const editRecord = () => {
   isOpen.value = null;
   window.location.reload();
 };
+// TODO: delete localstorage setitem
 
 export function RecordModal() {
   return (
