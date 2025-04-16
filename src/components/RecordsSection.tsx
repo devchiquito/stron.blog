@@ -41,8 +41,8 @@ export const RecordsSection = ({ records }: { records: Record[] }) => {
             .sort(
               (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
             )
-            .map((record, recordIndex) => (
-              <tr key={recordIndex} className="hover:bg-gray-100 border-b">
+            .map((record) => (
+              <tr key={record.id} className="hover:bg-gray-100 border-b">
                 <td className="px-4 py-2 text-center">
                   {new Date(record.date).toLocaleDateString()}
                 </td>

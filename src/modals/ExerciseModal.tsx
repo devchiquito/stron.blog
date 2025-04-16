@@ -1,45 +1,73 @@
 import { signal } from "@preact/signals";
 import { appData } from "../app";
+import { Exercise } from "../interfaces/Exercise";
 
-const isOpen = signal(false);
+const isOpen = signal<"add" | "edit" | null>(null);
 const name = signal("");
 const tags = signal<string[]>([]);
+const id = signal("");
 
-export const openExerciseModal = () => (isOpen.value = true);
+export const openExerciseModal = () => (isOpen.value = "add");
+
+export const openExerciseModalAndEdit = (exercise: Exercise) => {
+  isOpen.value = "edit";
+  name.value = exercise.name;
+  tags.value = exercise.tags;
+  id.value = exercise.id;
+};
+
+const addNewExercise = () => {
+  appData.value = [
+    ...appData.value,
+    {
+      name: name.value,
+      tags: tags.value,
+      records: [],
+      lastModified: new Date(),
+      maxWeight: 0,
+      id: crypto.randomUUID(),
+    },
+  ];
+  isOpen.value = null;
+};
+
+export const editExercise = () => {
+  const result: Exercise[] = appData.value.map((ex) => {
+    if (ex.id === id.value) {
+      ex.name = name.value;
+      ex.tags = tags.value;
+    }
+    return ex;
+  });
+
+  appData.value = result;
+  isOpen.value = null;
+};
 
 export function ExerciseModal() {
-  const handleAddExercise = () => {
-    appData.value = [
-      ...appData.value,
-      {
-        name: name.value,
-        tags: tags.value,
-        records: [],
-        lastModified: new Date(),
-        maxWeight: 0,
-        id: crypto.randomUUID(),
-      },
-    ];
-    isOpen.value = false;
-  };
-
   return (
     <div
       class={`fixed inset-0 z-10 bg-[rgba(0,0,0,0.8)] ${
         isOpen.value ? "" : "hidden pointer-events-none"
-      }
       }`}
     >
       <div class="fixed inset-0 z-20 flex items-center justify-center">
         <div class="w-full max-w-md p-6 bg-zinc-800 rounded-lg shadow-lg">
           <div class="flex justify-between mb-4">
-            <h2 class="text-2xl font-bold mb-4">Add exercise</h2>
-            <button onClick={() => (isOpen.value = false)}>X</button>
+            <h2 class="text-2xl font-bold mb-4">
+              {isOpen.value === "add" ? "Add exercise" : "Edit exercise"}
+            </h2>
+            <button onClick={() => (isOpen.value = null)}>X</button>
           </div>
           <form
             class="space-y-4"
-            onSubmit={() => {
-              handleAddExercise();
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (isOpen.value === "add") {
+                addNewExercise();
+              } else if (isOpen.value === "edit") {
+                editExercise();
+              }
             }}
           >
             <label class="block" htmlFor="name">
@@ -73,7 +101,7 @@ export function ExerciseModal() {
                 type="submit"
                 class="px-4 py-2 text-white bg-primary-600 rounded-md hover:bg-primary-700"
               >
-                Add
+                {isOpen.value === "add" ? "Add" : "Save"}
               </button>
             </div>
           </form>

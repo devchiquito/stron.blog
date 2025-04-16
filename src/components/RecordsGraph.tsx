@@ -16,7 +16,7 @@ interface Props {
 
 export default function RecordsChart({ bestRecordsArray }: Props) {
   return (
-    <div class={"mx-[-25px] "}>
+    <div class={"mx-[-20px] "}>
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart data={bestRecordsArray}>
           <CartesianGrid strokeDasharray="3 3" />

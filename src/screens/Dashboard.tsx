@@ -14,10 +14,12 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
       <RecordModal />
       <div class={"flex justify-end"}>
         <button onClick={() => openExerciseModal()}>Add exercise</button>
-        <ExerciseModal />
       </div>
-      {sortedExercises.map((exercise, index) => (
-        <button key={index} className="p-4 bg-white shadow rounded-lg w-full">
+      {sortedExercises.map((exercise) => (
+        <button
+          key={exercise.id}
+          className="p-4 bg-white shadow rounded-lg w-full"
+        >
           <div className="flex justify-between items-center">
             <div class={"flex gap-2 items-center"}>
               <h2 className="text-xl font-bold">{exercise.name} </h2>
@@ -34,7 +36,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
             >
               Add record
             </button>
-          </div>{" "}
+          </div>
           <div className="mb-5 flex flex-wrap space-x-2">
             {exercise.tags.map((tag, tagIndex) => (
               <span

@@ -1,4 +1,5 @@
 import { appData } from "../app";
+import { openRecordModalAndEdit, RecordModal } from "../modals/RecordModal";
 
 export function History() {
   const allRecords = appData.value
@@ -7,6 +8,7 @@ export function History() {
   console.log(allRecords);
   return (
     <table class="table-auto w-full">
+      <RecordModal />
       <thead>
         <tr>
           <th class="px-4 py-2">Exercise</th>
@@ -18,7 +20,10 @@ export function History() {
       <tbody>
         {allRecords.map((record) => (
           <tr class="hover:bg-gray-100">
-            <td class="border px-4 py-2">{record.name}</td>
+            <td class="border px-4 py-2">
+              {record.name}{" "}
+              <a onClick={() => openRecordModalAndEdit(record)}>Edit</a>
+            </td>
             <td class="border px-4 py-2">
               {new Date(record.date).toLocaleString()}
             </td>

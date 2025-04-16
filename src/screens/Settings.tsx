@@ -1,6 +1,7 @@
 import { signal } from "@preact/signals";
 import { appData } from "../app";
 import { SettingsJSONEdit } from "../components/SettingsJSONEdit";
+import { openExerciseModalAndEdit } from "../modals/ExerciseModal";
 
 const showSureButton = signal(false);
 const showExercises = signal(false);
@@ -20,24 +21,33 @@ export function Settings() {
     <>
       <div class="grid gap-4 w-full">
         <button onClick={() => (showExercises.value = !showExercises.value)}>
-          Delete exercises
+          Edit exercises
         </button>
         {showExercises.value && (
           <ul class="bg-zinc-800 rounded-lg p-4">
-            {appData.value.map((exercise, index) => (
+            {appData.value.map((exercise) => (
               <li
-                key={index}
+                key={exercise.id}
                 class="mb-2 flex justify-between items-center gap-6 "
               >
                 <span>{exercise.name}</span>
-                <button
-                  onClick={() => {
-                    showSureExercise.value = true;
-                    nameExerciseToDelete.value = exercise.name;
-                  }}
-                >
-                  Delete
-                </button>
+                <div class={"flex gap-2"}>
+                  <button
+                    onClick={() => {
+                      openExerciseModalAndEdit(exercise);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      showSureExercise.value = true;
+                      nameExerciseToDelete.value = exercise.name;
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
