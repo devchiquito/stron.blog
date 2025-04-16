@@ -15,25 +15,6 @@ const deleteExercise = () => {
   window.location.reload();
 };
 
-const asignarIdsaLosEjercicios = () => {
-  const result = appData.value.map((ex) => ({
-    ...ex,
-    id: crypto.randomUUID(),
-  }));
-  appData.value = result;
-};
-
-const asignarIdsaLosrecordsEjercicios = () => {
-  const result = appData.value.map((ex) => ({
-    ...ex,
-    records: ex.records.map((record) => ({
-      ...record,
-      id: crypto.randomUUID(),
-    })),
-  }));
-  appData.value = result;
-};
-
 export function Settings() {
   return (
     <>
@@ -121,12 +102,6 @@ export function Settings() {
           </div>
         )}
         <SettingsJSONEdit />
-        <button onClick={() => asignarIdsaLosEjercicios()}>
-          asignar ids a los ejercicios
-        </button>{" "}
-        <button onClick={() => asignarIdsaLosrecordsEjercicios()}>
-          asignar ids a los records de los ejercicios
-        </button>
       </div>
     </>
   );
