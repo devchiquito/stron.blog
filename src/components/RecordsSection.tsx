@@ -28,18 +28,32 @@ export const RecordsSection = ({ records }: { records: Record[] }) => {
   console.log("Mejores records por día:");
   console.log(bestRecordsArray);
   return (
-    <div>
-      {bestRecordsArray
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .map((record, recordIndex) => (
-          <div key={recordIndex} class={"flex justify-between items-center"}>
-            <p>
-              {new Date(record.date).toLocaleDateString()} - {record.weight} kg
-              - {record.reps} reps
-            </p>
-          </div>
-        ))}
+    <div class={"my-4"}>
       <RecordsChart bestRecordsArray={bestRecordsArray} />
+      <table className="table-auto w-full mt-4">
+        <thead>
+          <tr className="border-b">
+            <th className="px-4 py-2 text-center">Date</th>
+            <th className="px-4 py-2 text-center">Weight (kg)</th>
+            <th className="px-4 py-2 text-center">Reps</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bestRecordsArray
+            .sort(
+              (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+            )
+            .map((record, recordIndex) => (
+              <tr key={recordIndex} className="hover:bg-gray-100 border-b">
+                <td className="px-4 py-2 text-center">
+                  {new Date(record.date).toLocaleDateString()}
+                </td>
+                <td className="px-4 py-2 text-center">{record.weight}</td>
+                <td className="px-4 py-2 text-center">{record.reps}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 };

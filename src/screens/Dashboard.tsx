@@ -10,7 +10,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       <RecordModal />
       <div class={"flex justify-end"}>
         <button onClick={() => openExerciseModal()}>Add exercise</button>
@@ -34,9 +34,8 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
             >
               Add record
             </button>
-          </div>
-          <RecordsSection records={exercise.records} />
-          <div className="mt-2 flex flex-wrap space-x-2">
+          </div>{" "}
+          <div className="mb-5 flex flex-wrap space-x-2">
             {exercise.tags.map((tag, tagIndex) => (
               <span
                 key={tagIndex}
@@ -46,7 +45,8 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
               </span>
             ))}
           </div>
-          <span class={"text-zinc-400 text-xs"}>
+          <RecordsSection records={exercise.records} />
+          <span class={"text-zinc-400 text-xs "}>
             Last modified: {new Date(exercise.lastModified).toLocaleString()}
           </span>
         </button>
