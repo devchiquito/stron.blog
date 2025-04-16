@@ -1,8 +1,7 @@
 import { signal } from "@preact/signals";
 import { appData } from "../app";
 
-const isOpen = signal(false);
-const modeModal = signal<"add" | "edit">("add");
+const isOpen = signal<null | "add" | "edit">(null);
 
 const name = signal("");
 const date = signal(new Date());
@@ -11,15 +10,13 @@ const reps = signal(0);
 const id = signal("");
 
 export const openRecordModal = (exerciseName: string, maxWeight: number) => {
-  isOpen.value = true;
-  modeModal.value = "add";
+  isOpen.value = "add";
   name.value = exerciseName;
   weight.value = maxWeight;
 };
 
 export const openRecordModalAndEdit = (record: any) => {
-  isOpen.value = true;
-  modeModal.value = "edit";
+  isOpen.value = "edit";
   name.value = record.name;
   date.value = new Date(record.date);
   weight.value = record.weight;
@@ -42,7 +39,8 @@ const addNewRecord = () => {
 
     localStorage.setItem("myAppData", JSON.stringify(appData.value));
   }
-  isOpen.value = false;
+  isOpen.value = null;
+  window.location.reload();
 };
 
 const editRecord = () => {
@@ -60,7 +58,7 @@ const editRecord = () => {
       localStorage.setItem("myAppData", JSON.stringify(appData.value));
     }
   }
-  isOpen.value = false;
+  isOpen.value = null;
   window.location.reload();
 };
 
@@ -76,11 +74,11 @@ export function RecordModal() {
         <div class="w-full max-w-md p-6 bg-zinc-800 rounded-lg shadow-lg">
           <div class="flex justify-between mb-4">
             <h2 class="text-2xl font-bold mb-4">
-              {modeModal.value === "add" ? "Add Record" : "Edit Record"}
+              {isOpen.value === "add" ? "Add Record" : "Edit Record"}
             </h2>
             <button
               onClick={() => {
-                isOpen.value = false;
+                isOpen.value = null;
                 console.log("Closing modal");
               }}
             >
@@ -91,9 +89,9 @@ export function RecordModal() {
             class="space-y-4"
             onSubmit={(e) => {
               e.preventDefault();
-              if (modeModal.value === "add") {
+              if (isOpen.value === "add") {
                 addNewRecord();
-              } else if (modeModal.value === "edit") {
+              } else if (isOpen.value === "edit") {
                 editRecord();
               }
             }}
@@ -150,7 +148,7 @@ export function RecordModal() {
                 type="submit"
                 class="px-4 py-2 text-white bg-primary-600 rounded-md hover:bg-primary-700"
               >
-                {modeModal.value === "add" ? "Add record" : "Edit record"}
+                {isOpen.value === "add" ? "Add record" : "Edit record"}
               </button>
             </div>
           </form>

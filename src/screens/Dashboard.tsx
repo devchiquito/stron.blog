@@ -1,7 +1,7 @@
 import { RecordsSection } from "../components/RecordsSection";
 import { Exercise } from "../interfaces/Exercise";
 import { openExerciseModal } from "../modals/ExerciseModal";
-import { openRecordModal, RecordModal } from "../modals/RecordModal";
+import { openRecordModal } from "../modals/RecordModal";
 
 export function Dashboard({ exercises }: { exercises: Exercise[] }) {
   const sortedExercises = [...exercises].sort(
@@ -11,7 +11,6 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
 
   return (
     <div className="space-y-4 w-full">
-      <RecordModal />
       <div class={"flex justify-end"}>
         <button onClick={() => openExerciseModal()}>Add exercise</button>
       </div>

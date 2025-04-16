@@ -4,6 +4,7 @@ import { History } from "./screens/History";
 import { Exercise } from "./interfaces/Exercise";
 import { Settings } from "./screens/Settings";
 import { ExerciseModal } from "./modals/ExerciseModal";
+import { RecordModal } from "./modals/RecordModal";
 
 const lastScreen = localStorage.getItem("lastScreen");
 const screen = signal<string>(lastScreen ? lastScreen : "Dashboard");
@@ -90,6 +91,7 @@ export function App() {
         <button onClick={() => (screen.value = "Settings")}>Settings</button>
       </div>
       <ExerciseModal />
+      <RecordModal />
     </>
   );
 }

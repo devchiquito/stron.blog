@@ -1,5 +1,5 @@
 import { appData } from "../app";
-import { openRecordModalAndEdit, RecordModal } from "../modals/RecordModal";
+import { openRecordModalAndEdit } from "../modals/RecordModal";
 
 export function History() {
   const allRecords = appData.value
@@ -8,7 +8,6 @@ export function History() {
   console.log(allRecords);
   return (
     <table class="table-auto w-full">
-      <RecordModal />
       <thead>
         <tr>
           <th class="px-4 py-2">Exercise</th>
