@@ -13,25 +13,25 @@ export const openRecordModal = (exerciseName: string, maxWeight: number) => {
   name.value = exerciseName;
   weight.value = maxWeight;
 };
+const handleAddRecord = () => {
+  const exercise = appData.value.find((ex) => ex.name === name.value);
+  if (exercise) {
+    console.log(date.value);
+    exercise.records.push({
+      date: new Date(date.value),
+      weight: weight.value,
+      reps: reps.value,
+      name: name.value,
+    });
+    exercise.lastModified = new Date();
+    exercise.maxWeight = Math.max(exercise.maxWeight, weight.value);
+
+    localStorage.setItem("myAppData", JSON.stringify(appData.value));
+  }
+  isOpen.value = false;
+};
 
 export function RecordModal() {
-  const handleAddRecord = () => {
-    const exercise = appData.value.find((ex) => ex.name === name.value);
-    if (exercise) {
-      exercise.records.push({
-        date: new Date(date.value),
-        weight: weight.value,
-        reps: reps.value,
-        name: name.value,
-      });
-      exercise.lastModified = new Date();
-      exercise.maxWeight = Math.max(exercise.maxWeight, weight.value);
-
-      localStorage.setItem("myAppData", JSON.stringify(appData.value));
-    }
-    isOpen.value = false;
-  };
-
   return (
     <div
       id="modal-background"
@@ -52,12 +52,7 @@ export function RecordModal() {
               X
             </button>
           </div>
-          <form
-            class="space-y-4"
-            onSubmit={() => {
-              handleAddRecord();
-            }}
-          >
+          <form class="space-y-4" onSubmit={() => handleAddRecord()}>
             <label class="block" htmlFor="date">
               Date
               <input
@@ -66,9 +61,17 @@ export function RecordModal() {
                 required
                 class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 value={date.value.toISOString().split("T")[0]}
-                onInput={(e) =>
-                  (date.value = new Date((e.target as HTMLInputElement).value))
-                }
+                onInput={(e) => {
+                  const [year, month, day] = (
+                    e.target as HTMLInputElement
+                  ).value.split("-");
+                  date.value = new Date(
+                    Number(year),
+                    Number(month) - 1,
+                    Number(day),
+                    12
+                  );
+                }}
               />
             </label>
             <label class="block" htmlFor="weight">

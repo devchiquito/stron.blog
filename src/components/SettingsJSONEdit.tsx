@@ -25,23 +25,22 @@ export function SettingsJSONEdit() {
         rows={20}
       />
 
-      <div class="flex justify-between">
+      <div class="flex items-center gap-5">
         <button
           class="bg-green-500 hover:bg-green-700"
           onClick={handleSaveChanges}
         >
           Save changes
-        </button>
+        </button>{" "}
+        {showSureButton.value && (
+          <button
+            class=" bg-yellow-500 hover:bg-yellow-700"
+            onClick={handleShowSureButton}
+          >
+            Are you sure?
+          </button>
+        )}
       </div>
-
-      {showSureButton.value && (
-        <button
-          class="mt-4 bg-yellow-500 hover:bg-yellow-700"
-          onClick={handleShowSureButton}
-        >
-          Are you sure?
-        </button>
-      )}
     </div>
   );
 }

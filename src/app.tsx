@@ -59,7 +59,7 @@ export function App() {
       </header>
       <p class="text-3  text-center p-5 xl font-bold underline">{screen}</p>
 
-      <div class={"flex justify-center p-5 pb-24"}>
+      <div class={"flex justify-center p-5 pb-24 max-w-xl mx-auto"}>
         {screen.value === "Dashboard" ? (
           <Dashboard exercises={appData.value} />
         ) : screen.value === "History" ? (
