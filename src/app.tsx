@@ -4,7 +4,10 @@ import { History } from "./screens/History";
 import { Exercise } from "./interfaces/Exercise";
 import { Settings } from "./screens/Settings";
 
-const screen = signal<string>("Dashboard");
+const lastScreen = localStorage.getItem("lastScreen");
+const screen = signal<string>(lastScreen ? lastScreen : "Dashboard");
+
+effect(() => localStorage.setItem("lastScreen", screen.value));
 
 const localStorageData = localStorage.getItem("myAppData");
 export const appData = signal<Exercise[]>(
