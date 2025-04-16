@@ -1,3 +1,4 @@
+import { RecordsSection } from "../components/RecordsSection";
 import { Exercise } from "../interfaces/Exercise";
 import { ExerciseModal, openExerciseModal } from "../modals/ExerciseModal";
 import { openRecordModal, RecordModal } from "../modals/RecordModal";
@@ -34,24 +35,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
               Add record
             </button>
           </div>
-          <div>
-            {[...exercise.records]
-              .sort(
-                (a, b) =>
-                  new Date(b.date).getTime() - new Date(a.date).getTime()
-              )
-              .map((record, recordIndex) => (
-                <div
-                  key={recordIndex}
-                  class={"flex justify-between items-center"}
-                >
-                  <p>
-                    {new Date(record.date).toLocaleDateString()} -{" "}
-                    {record.weight} kg - {record.reps} reps
-                  </p>
-                </div>
-              ))}
-          </div>
+          <RecordsSection records={exercise.records} />
           <div className="mt-2 flex flex-wrap space-x-2">
             {exercise.tags.map((tag, tagIndex) => (
               <span
