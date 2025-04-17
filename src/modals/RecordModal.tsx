@@ -25,43 +25,51 @@ export const openRecordModalAndEdit = (record: any) => {
 };
 
 const addNewRecord = () => {
-  const exercise = appData.value.find((ex) => ex.name === name.value);
-  if (exercise) {
-    exercise.records.push({
-      date: date.value,
-      weight: weight.value,
-      reps: reps.value,
-      name: name.value,
-      id: crypto.randomUUID(),
-    });
-    exercise.lastModified = new Date();
-    exercise.maxWeight = Math.max(exercise.maxWeight, weight.value);
-
-    localStorage.setItem("myAppData", JSON.stringify(appData.value));
-  }
+  appData.value = appData.value.map((ex) => {
+    if (ex.name === name.value) {
+      ex.records.push({
+        date: date.value,
+        name: name.value,
+        reps: reps.value,
+        weight: weight.value,
+        id: crypto.randomUUID(),
+      });
+      ex.lastModified = new Date();
+      ex.maxWeight = Math.max(ex.maxWeight, weight.value);
+    }
+    return ex;
+  });
   isOpen.value = null;
-  window.location.reload();
 };
 
 const editRecord = () => {
-  const exercise = appData.value.find((ex) =>
-    ex.records.some((r) => r.id === id.value)
-  );
-  if (exercise) {
-    const record = exercise.records.find((r) => r.id === id.value);
-    if (record) {
-      record.weight = weight.value;
-      record.reps = reps.value;
-      record.date = date.value;
-      exercise.lastModified = new Date();
-
-      localStorage.setItem("myAppData", JSON.stringify(appData.value));
+  appData.value = appData.value.map((ex) => {
+    if (ex.name === name.value) {
+      ex.records = ex.records.map((record) => {
+        if (record.id === id.value) {
+          record.date = date.value;
+          record.weight = weight.value;
+          record.reps = reps.value;
+        }
+        return record;
+      });
+      ex.lastModified = new Date();
     }
-  }
+    return ex;
+  });
   isOpen.value = null;
-  window.location.reload();
 };
-// TODO: delete localstorage setitem
+
+const deleteRecord = () => {
+  appData.value = appData.value.map((ex) => {
+    if (ex.name === name.value) {
+      ex.records = ex.records.filter((record) => record.id !== id.value);
+      ex.lastModified = new Date();
+    }
+    return ex;
+  });
+  isOpen.value = null;
+};
 
 export function RecordModal() {
   return (
@@ -144,7 +152,10 @@ export function RecordModal() {
                 }
               />
             </label>
-            <div class="flex justify-end">
+            <div class="flex justify-end gap-3">
+              {isOpen.value === "edit" && (
+                <button onClick={() => deleteRecord()}>Delete record</button>
+              )}
               <button
                 type="submit"
                 class="px-4 py-2 text-white bg-primary-600 rounded-md hover:bg-primary-700"

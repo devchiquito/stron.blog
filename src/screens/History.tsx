@@ -18,7 +18,7 @@ export function History() {
       </thead>
       <tbody>
         {allRecords.map((record) => (
-          <tr class="hover:bg-gray-100">
+          <tr class="hover:bg-zinc-800">
             <td class="border px-4 py-2">
               {record.name}{" "}
               <a onClick={() => openRecordModalAndEdit(record)}>Edit</a>
