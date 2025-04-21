@@ -3,13 +3,17 @@ import { signal } from "@preact/signals";
 
 const showSureButton = signal(false);
 const showTextarea = signal(false);
+const textAreaValue = signal("");
 
 const handleSaveChanges = () => {
   showSureButton.value = true;
 };
 
 const handleShowSureButton = () => {
-  localStorage.setItem("myAppData", JSON.stringify(appData.value));
+  localStorage.setItem(
+    "myAppData",
+    JSON.stringify(JSON.parse(textAreaValue.value))
+  );
   window.location.reload();
 };
 
@@ -24,10 +28,8 @@ export function SettingsJSONEdit() {
           <textarea
             class="w-full p-2 mb-4"
             value={JSON.stringify(appData.value, null, 2)}
-            onInput={(e) =>
-              (appData.value = JSON.parse(
-                (e.target as HTMLTextAreaElement).value
-              ))
+            onChange={(e) =>
+              (textAreaValue.value = (e.target as HTMLTextAreaElement)?.value)
             }
             rows={20}
           />
