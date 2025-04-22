@@ -40,7 +40,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
             {exercise.tags.map((tag, tagIndex) => (
               <span
                 key={tagIndex}
-                className="inline-block bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                className="inline-block text-sky-400 border border-sky-400 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
               >
                 {tag}
               </span>

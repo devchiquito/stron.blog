@@ -37,8 +37,8 @@ export default function RecordsChart({ bestRecordsArray }: Props) {
             yAxisId="left"
             type="monotone"
             dataKey="weight"
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="#38bdf8"
+            fill="#38bdf8"
             fillOpacity={0.3}
             name="Weight (kg)"
           />
@@ -48,8 +48,8 @@ export default function RecordsChart({ bestRecordsArray }: Props) {
             yAxisId="right"
             type="monotone"
             dataKey="reps"
-            stroke="#82ca9d"
-            fill="#82ca9d"
+            stroke="oklch(84.1% 0.238 128.85)"
+            fill="oklch(84.1% 0.238 128.85)"
             fillOpacity={0.3}
             name="Repetitions"
           />
