@@ -29,7 +29,13 @@ export default function RecordsChart({ bestRecordsArray }: Props) {
           <YAxis yAxisId="left" />
           {/* Eje Y derecho para las repeticiones */}
           <YAxis yAxisId="right" orientation="right" />
-          <Tooltip />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: "oklch(26.9% 0 0)",
+              border: "none",
+            }}
+            labelFormatter={(tick) => new Date(tick).toLocaleDateString()}
+          />
           <Legend />
 
           {/* Área de peso */}
