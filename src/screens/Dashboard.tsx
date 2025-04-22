@@ -21,7 +21,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
         >
           <div className="flex justify-between items-center">
             <div class={"flex gap-2 items-center"}>
-              <h2 className="text-xl font-bold">{exercise.name} </h2>
+              <h2 className="text-xl font-bold text-left">{exercise.name} </h2>
               <span
                 class={
                   "text-lime-400 text-[9px] border border-lime-400 rounded p-1"
