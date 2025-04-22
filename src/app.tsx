@@ -72,7 +72,7 @@ export function App() {
           <Settings />
         )}
       </div>
-      <div class="fixed bottom-0 left-0 right-0 flex w-full max-w-xl mx-auto justify-around p-4 bg-zinc-900 text-white rounded-t-xl">
+      <div class="fixed bottom-0 left-0 right-0 flex w-full max-w-xl mx-auto justify-around p-4 bg-zinc-900 text-white rounded-t-4xl">
         <button
           onClick={() => {
             screen.value = "Dashboard";
