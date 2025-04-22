@@ -62,9 +62,8 @@ export function App() {
         </svg>
         STRON.BLOG
       </header>
-      <p class="text-3  text-center p-5 xl font-bold underline">{screen}</p>
 
-      <div class={"flex justify-center p-5 pb-24 max-w-xl mx-auto"}>
+      <div class={"flex justify-center p-5 pb-24 "}>
         {screen.value === "Dashboard" ? (
           <Dashboard exercises={appData.value} />
         ) : screen.value === "History" ? (
@@ -73,11 +72,12 @@ export function App() {
           <Settings />
         )}
       </div>
-      <div class="fixed bottom-0 left-0 right-0 flex w-full justify-around p-4 bg-zinc-900 text-white">
+      <div class="fixed bottom-0 left-0 right-0 flex w-full max-w-xl mx-auto justify-around p-4 bg-zinc-900 text-white rounded-t-xl">
         <button
           onClick={() => {
             screen.value = "Dashboard";
           }}
+          class={screen.value === "Dashboard" ? "text-lime-400" : ""}
         >
           Dashboard
         </button>
@@ -85,10 +85,16 @@ export function App() {
           onClick={() => {
             screen.value = "History";
           }}
+          class={screen.value === "History" ? "text-lime-400" : ""}
         >
           History
         </button>
-        <button onClick={() => (screen.value = "Settings")}>Settings</button>
+        <button
+          onClick={() => (screen.value = "Settings")}
+          class={screen.value === "Settings" ? "text-lime-400" : ""}
+        >
+          Settings
+        </button>
       </div>
       <ExerciseModal />
       <RecordModal />
