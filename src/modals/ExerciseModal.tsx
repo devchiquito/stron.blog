@@ -58,8 +58,8 @@ export function ExerciseModal() {
             <h2 class="text-2xl font-bold mb-4">
               {isOpen.value === "add"
                 ? isEnglish.value
-                  ? "Add exercise"
-                  : "Añadir ejercicio"
+                  ? "Add new exercise"
+                  : "Añadir nuevo ejercicio"
                 : isEnglish.value
                 ? "Edit exercise"
                 : "Editar ejercicio"}

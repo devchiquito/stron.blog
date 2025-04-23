@@ -6,7 +6,6 @@ export function History() {
   const allRecords = appData.value
     .flatMap((exercise) => exercise.records)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  console.log(allRecords);
   return (
     <>
       {allRecords.length === 0 ? (

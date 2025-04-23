@@ -1,9 +1,9 @@
-import { Record } from "./Record";
+import { Serie } from "./Record";
 
 export interface Exercise {
   name: string;
   tags: string[];
-  records: Record[];
+  records: Serie[];
   lastModified: Date;
   maxWeight: number;
   id: string;

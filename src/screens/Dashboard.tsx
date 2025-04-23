@@ -1,3 +1,7 @@
+import {
+  ButtonLoadExampleData,
+  isInDemoMode,
+} from "../components/ButtonLoadExampleData";
 import { isEnglish } from "../components/Header";
 import { RecordsSection } from "../components/RecordsSection";
 import { Exercise } from "../interfaces/Exercise";
@@ -14,15 +18,31 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
       {exercises.length === 0 && (
         <p>
           {isEnglish.value
-            ? "You don't have any exercises registered yet, you can add exercises with the button below."
-            : "Aun no tienes ejercicios registrados, puedes añadir ejercicios con el boton de abajo."}
+            ? "You don't have any exercises registered yet, you can add exercises with the button below or you can load example data to see how the app works."
+            : "Aun no tienes ejercicios registrados, puedes añadir ejercicios con el boton de abajo o puedes cargar datos de ejemplo para ver como funciona la app."}
         </p>
       )}
+      {isInDemoMode.value && (
+        <p>
+          {isEnglish.value
+            ? "You are in demo mode, you can add exercises with the button below or you can delete all data in the Settings."
+            : "Estas en modo demo, puedes agregar ejercicios con el boton de abajo o puedes eliminar todos los datos en los Ajustes."}
+        </p>
+      )}
+
       <div class={"flex justify-center"}>
-        <button onClick={() => openExerciseModal()}>
+        <button
+          onClick={() => openExerciseModal()}
+          class="text-lime-500 border border-lime-500"
+        >
           {isEnglish.value ? "Add exercise" : "Añadir Ejercicio"}
         </button>
       </div>
+      {exercises.length === 0 && (
+        <div class={"flex justify-center"}>
+          <ButtonLoadExampleData />
+        </div>
+      )}
       {sortedExercises.map((exercise) => (
         <button
           key={exercise.id}
@@ -33,21 +53,22 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
 
             <button
               onClick={() => openRecordModal(exercise.name, exercise.maxWeight)}
+              class="text-sky-500 border border-sky-500"
             >
               {isEnglish.value ? "Add set" : "Añadir serie"}
             </button>
           </div>
-          <div className="mb-5 flex flex-wrap space-x-2">
+
+          <RecordsSection records={exercise.records} />
+          <div className="mb-5   text-xs  ">
+            {isEnglish.value ? "Tags: " : "Etiquetas: "}
             {exercise.tags.map((tag, tagIndex) => (
-              <span
-                key={tagIndex}
-                className="inline-block text-sky-400 border border-sky-400 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-              >
-                {tag}
+              <span key={tagIndex} className=" text-sky-400   ">
+                {tag.toUpperCase()}
+                {tagIndex < exercise.tags.length - 1 ? ", " : ""}
               </span>
             ))}
           </div>
-          <RecordsSection records={exercise.records} />
           <span class={"text-zinc-400 text-xs "}>
             {isEnglish.value ? "Last modified" : "Ultima modificacion"}:{" "}
             {new Date(exercise.lastModified).toLocaleString()}

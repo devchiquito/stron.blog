@@ -8,11 +8,11 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { Record } from "../interfaces/Record";
+import { Serie } from "../interfaces/Record";
 import { isEnglish } from "./Header";
 
 interface Props {
-  bestRecordsArray: Record[];
+  bestRecordsArray: Serie[];
 }
 
 export default function RecordsChart({ bestRecordsArray }: Props) {

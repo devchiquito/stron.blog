@@ -1,4 +1,4 @@
-export interface Record {
+export interface Serie {
   date: Date;
   name: string;
   reps: number;

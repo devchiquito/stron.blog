@@ -1,9 +1,9 @@
-import { Record } from "../interfaces/Record";
+import { Serie } from "../interfaces/Record";
 import { isEnglish } from "./Header";
 import RecordsChart from "./RecordsGraph";
 
-export const RecordsSection = ({ records }: { records: Record[] }) => {
-  const bestRecordsByDay: { [key: string]: Record } = {};
+export const RecordsSection = ({ records }: { records: Serie[] }) => {
+  const bestRecordsByDay: { [key: string]: Serie } = {};
 
   records.forEach((record) => {
     const dateString = new Date(record.date).toISOString().split("T")[0];

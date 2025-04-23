@@ -11,7 +11,7 @@ import { BottomNavigationBar } from "./components/BottomNavigationBar";
 const lastScreen = localStorage.getItem("lastScreen");
 const screen = signal<string>(lastScreen ? lastScreen : "Dashboard");
 effect(() => localStorage.setItem("lastScreen", screen.value));
-const changeScreen = (screenSelected: string) =>
+export const changeScreen = (screenSelected: string) =>
   (screen.value = screenSelected);
 
 const localStorageData = localStorage.getItem("myAppData");
