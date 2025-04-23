@@ -20,8 +20,8 @@ const deleteExercise = () => {
 
 export function Settings() {
   return (
-    <>
-      <div class="grid gap-4 w-full">
+    <div class=" fade-in">
+      <div class="grid gap-4 w-full ">
         <button onClick={() => (showExercises.value = !showExercises.value)}>
           {isEnglish.value ? "Edit exercises" : "Editar ejercicios"}
         </button>
@@ -95,6 +95,6 @@ export function Settings() {
         )}
         <ButtonLoadExampleData /> <SettingsJSONEdit /> <ButtonDeleteAllData />
       </div>
-    </>
+    </div>
   );
 }

@@ -14,7 +14,7 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
   );
   return (
-    <div className="space-y-4 w-full">
+    <div className="space-y-4 fade-in">
       {exercises.length === 0 && (
         <p>
           {isEnglish.value

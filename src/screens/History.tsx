@@ -7,7 +7,7 @@ export function History() {
     .flatMap((exercise) => exercise.records)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return (
-    <>
+    <div class="fade-in">
       {allRecords.length === 0 ? (
         <p>
           {isEnglish.value
@@ -47,6 +47,6 @@ export function History() {
           </tbody>
         </table>
       )}
-    </>
+    </div>
   );
 }
