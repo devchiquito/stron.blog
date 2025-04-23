@@ -61,14 +61,25 @@ export function Settings() {
           >
             <div class="bg-zinc-800 rounded-lg p-4">
               <div class={"flex justify-between mb-4 items-center"}>
-                <p class="font-bold text-lg">Are you sure?</p>
+                <p class="font-bold text-lg">
+                  {isEnglish.value ? "Are you sure?" : "Estas seguro?"}
+                </p>
                 <button onClick={() => (showSureExercise.value = false)}>
                   X
                 </button>
               </div>
               <p class="my-4">
-                This action will delete the exercise "
-                {nameExerciseToDelete.value}" and it can't be undone.
+                {isEnglish.value ? (
+                  <>
+                    This action will delete the exercise "
+                    {nameExerciseToDelete.value}" and it can't be undone.
+                  </>
+                ) : (
+                  <>
+                    Esta accion borrara el ejercicio "
+                    {nameExerciseToDelete.value}" y no se podra deshacer.
+                  </>
+                )}
               </p>
               <button
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -76,7 +87,7 @@ export function Settings() {
                   deleteExercise();
                 }}
               >
-                Sure?
+                {isEnglish.value ? "Sure?" : "Seguro?"}
               </button>
             </div>
           </div>
