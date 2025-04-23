@@ -1,6 +1,7 @@
 import { signal } from "@preact/signals";
 import { appData } from "../app";
 import { Exercise } from "../interfaces/Exercise";
+import { isEnglish } from "../components/Header";
 
 const isOpen = signal<"add" | "edit" | null>(null);
 const name = signal("");
@@ -55,7 +56,13 @@ export function ExerciseModal() {
         <div class="w-full max-w-md p-6 bg-zinc-800 rounded-lg shadow-lg">
           <div class="flex justify-between mb-4">
             <h2 class="text-2xl font-bold mb-4">
-              {isOpen.value === "add" ? "Add exercise" : "Edit exercise"}
+              {isOpen.value === "add"
+                ? isEnglish.value
+                  ? "Add exercise"
+                  : "Añadir ejercicio"
+                : isEnglish.value
+                ? "Edit exercise"
+                : "Editar ejercicio"}
             </h2>
             <button onClick={() => (isOpen.value = null)}>X</button>
           </div>
@@ -71,7 +78,7 @@ export function ExerciseModal() {
             }}
           >
             <label class="block" htmlFor="name">
-              Name
+              {isEnglish.value ? "Name" : "Nombre"}
               <input
                 type="text"
                 id="name"
@@ -84,7 +91,7 @@ export function ExerciseModal() {
               />
             </label>
             <label class="block" htmlFor="tags">
-              Tags
+              {isEnglish.value ? "Tags" : "Etiquetas"}
               <input
                 type="text"
                 id="tags"
@@ -101,7 +108,13 @@ export function ExerciseModal() {
                 type="submit"
                 class="px-4 py-2 text-white bg-primary-600 rounded-md hover:bg-primary-700"
               >
-                {isOpen.value === "add" ? "Add" : "Save"}
+                {isOpen.value === "add"
+                  ? isEnglish.value
+                    ? "Add"
+                    : "Añadir"
+                  : isEnglish.value
+                  ? "Save"
+                  : "Guardar"}
               </button>
             </div>
           </form>

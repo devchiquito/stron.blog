@@ -1,5 +1,6 @@
 import { appData } from "../app";
 import { signal } from "@preact/signals";
+import { isEnglish } from "./Header";
 
 const showSureButton = signal(false);
 const showTextarea = signal(false);
@@ -21,7 +22,7 @@ export function SettingsJSONEdit() {
   return (
     <>
       <button onClick={() => (showTextarea.value = !showTextarea.value)}>
-        Edit JSON data
+        {isEnglish.value ? "Edit JSON data" : "Editar datos JSON"}
       </button>
       {showTextarea.value && (
         <div class="p-4 w-full min-w-[300px]">
@@ -39,14 +40,14 @@ export function SettingsJSONEdit() {
               class="bg-green-500 hover:bg-green-700"
               onClick={handleSaveChanges}
             >
-              Save changes
+              {isEnglish.value ? "Save changes" : "Guardar cambios"}
             </button>{" "}
             {showSureButton.value && (
               <button
                 class=" bg-yellow-500 hover:bg-yellow-700"
                 onClick={handleShowSureButton}
               >
-                Are you sure?
+                {isEnglish.value ? "Are you sure?" : "Estas seguro?"}
               </button>
             )}
           </div>

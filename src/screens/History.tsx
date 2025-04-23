@@ -1,18 +1,20 @@
 import { appData } from "../app";
+import { isEnglish } from "../components/Header";
 import { openRecordModalAndEdit } from "../modals/RecordModal";
 
 export function History() {
   const allRecords = appData.value
     .flatMap((exercise) => exercise.records)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  console.log(allRecords);
   return (
     <table class="table-auto w-full">
       <thead>
         <tr>
-          <th class="px-4 py-2">Exercise</th>
-          <th class="px-4 py-2">Date</th>
-          <th class="px-4 py-2">Weight</th>
+          <th class="px-4 py-2">
+            {isEnglish.value ? "Exercise" : "Ejercicio"}
+          </th>
+          <th class="px-4 py-2">{isEnglish.value ? "Date" : "Fecha"}</th>
+          <th class="px-4 py-2">{isEnglish.value ? "Weight" : "Peso"} (kg)</th>
           <th class="px-4 py-2">Reps</th>
         </tr>
       </thead>
@@ -21,7 +23,9 @@ export function History() {
           <tr class="hover:bg-zinc-800">
             <td class="border px-4 py-2">
               {record.name}{" "}
-              <a onClick={() => openRecordModalAndEdit(record)}>Edit</a>
+              <a onClick={() => openRecordModalAndEdit(record)}>
+                {isEnglish.value ? "Edit" : "Editar"}
+              </a>
             </td>
             <td class="border px-4 py-2">
               {new Date(record.date).toLocaleString()}

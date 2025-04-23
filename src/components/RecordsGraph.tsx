@@ -9,6 +9,7 @@ import {
   Legend,
 } from "recharts";
 import { Record } from "../interfaces/Record";
+import { isEnglish } from "./Header";
 
 interface Props {
   bestRecordsArray: Record[];
@@ -46,7 +47,7 @@ export default function RecordsChart({ bestRecordsArray }: Props) {
             stroke="#38bdf8"
             fill="#38bdf8"
             fillOpacity={0.3}
-            name="Weight (kg)"
+            name={isEnglish.value ? "Weight" : "Peso"}
           />
 
           {/* Área de repeticiones */}
@@ -57,7 +58,7 @@ export default function RecordsChart({ bestRecordsArray }: Props) {
             stroke="oklch(84.1% 0.238 128.85)"
             fill="oklch(84.1% 0.238 128.85)"
             fillOpacity={0.3}
-            name="Repetitions"
+            name="Reps"
           />
         </AreaChart>
       </ResponsiveContainer>

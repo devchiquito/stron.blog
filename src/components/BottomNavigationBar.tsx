@@ -1,4 +1,5 @@
 import { Signal } from "@preact/signals";
+import { isEnglish } from "./Header";
 
 export const BottomNavigationBar = ({
   changeScreen,
@@ -14,19 +15,19 @@ export const BottomNavigationBar = ({
       }}
       class={screen.value === "Dashboard" ? "text-lime-400" : ""}
     >
-      Dashboard
+      {isEnglish.value ? "Dashboard" : "Tablero"}
     </button>
     <button
       onClick={() => changeScreen("History")}
       class={screen.value === "History" ? "text-lime-400" : ""}
     >
-      History
+      {isEnglish.value ? "History" : "Historial"}
     </button>
     <button
       onClick={() => changeScreen("Settings")}
       class={screen.value === "Settings" ? "text-lime-400" : ""}
     >
-      Settings
+      {isEnglish.value ? "Settings" : "Ajustes"}
     </button>
   </div>
 );

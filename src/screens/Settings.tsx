@@ -2,6 +2,7 @@ import { signal } from "@preact/signals";
 import { appData } from "../app";
 import { SettingsJSONEdit } from "../components/SettingsJSONEdit";
 import { openExerciseModalAndEdit } from "../modals/ExerciseModal";
+import { isEnglish } from "../components/Header";
 
 const showSureButton = signal(false);
 const showExercises = signal(false);
@@ -21,7 +22,7 @@ export function Settings() {
     <>
       <div class="grid gap-4 w-full">
         <button onClick={() => (showExercises.value = !showExercises.value)}>
-          Edit exercises
+          {isEnglish.value ? "Edit exercises" : "Editar ejercicios"}
         </button>
         {showExercises.value && (
           <ul class="bg-zinc-800 rounded-lg p-4">
@@ -37,7 +38,7 @@ export function Settings() {
                       openExerciseModalAndEdit(exercise);
                     }}
                   >
-                    Edit
+                    {isEnglish.value ? "Edit" : "Editar"}
                   </button>
                   <button
                     onClick={() => {
@@ -45,7 +46,7 @@ export function Settings() {
                       nameExerciseToDelete.value = exercise.name;
                     }}
                   >
-                    Delete
+                    {isEnglish.value ? "Delete" : "Borrar"}
                   </button>
                 </div>
               </li>
@@ -81,7 +82,7 @@ export function Settings() {
           </div>
         )}
         <button onClick={() => (showSureButton.value = true)}>
-          Delete all data
+          {isEnglish.value ? "Delete all data" : "Borrar todos los datos"}
         </button>
         {showSureButton.value && (
           <div
@@ -91,13 +92,17 @@ export function Settings() {
           >
             <div class="bg-zinc-800 rounded-lg p-4">
               <div class={"flex justify-between mb-4 items-center"}>
-                <p class="font-bold text-lg">Are you sure?</p>
+                <p class="font-bold text-lg">
+                  {isEnglish.value ? "Are you sure?" : "Estas seguro?"}
+                </p>
                 <button onClick={() => (showSureButton.value = false)}>
                   X
                 </button>
               </div>
               <p class="my-4">
-                This action will delete all your data and it can't be undone.
+                {isEnglish.value
+                  ? "This action will delete all your data and it can't be undone."
+                  : "Esta accion borrara todos tus datos y no se puede deshacer."}
               </p>
               <button
                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -106,7 +111,7 @@ export function Settings() {
                   window.location.reload();
                 }}
               >
-                Sure?
+                {isEnglish.value ? "Delete all data" : "Borrar todos los datos"}
               </button>
             </div>
           </div>

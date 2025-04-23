@@ -10,8 +10,9 @@ import { BottomNavigationBar } from "./components/BottomNavigationBar";
 
 const lastScreen = localStorage.getItem("lastScreen");
 const screen = signal<string>(lastScreen ? lastScreen : "Dashboard");
-
 effect(() => localStorage.setItem("lastScreen", screen.value));
+const changeScreen = (screenSelected: string) =>
+  (screen.value = screenSelected);
 
 const localStorageData = localStorage.getItem("myAppData");
 export const appData = signal<Exercise[]>(
@@ -20,9 +21,6 @@ export const appData = signal<Exercise[]>(
 effect(() => {
   localStorage.setItem("myAppData", JSON.stringify(appData.value));
 });
-
-const changeScreen = (screenSelected: string) =>
-  (screen.value = screenSelected);
 
 export function App() {
   return (

@@ -1,5 +1,6 @@
 import { signal } from "@preact/signals";
 import { appData } from "../app";
+import { isEnglish } from "../components/Header";
 
 const isOpen = signal<null | "add" | "edit">(null);
 
@@ -83,12 +84,17 @@ export function RecordModal() {
         <div class="w-full max-w-md p-6 bg-zinc-800 rounded-lg shadow-lg">
           <div class="flex justify-between mb-4">
             <h2 class="text-2xl font-bold mb-4">
-              {isOpen.value === "add" ? "Add Record" : "Edit Record"}
+              {isOpen.value === "add"
+                ? isEnglish.value
+                  ? "Add set"
+                  : "Añadir serie"
+                : isEnglish.value
+                ? "Edit set"
+                : "Editar serie"}
             </h2>
             <button
               onClick={() => {
                 isOpen.value = null;
-                console.log("Closing modal");
               }}
             >
               X
@@ -106,7 +112,7 @@ export function RecordModal() {
             }}
           >
             <label class="block" htmlFor="date">
-              Date
+              {isEnglish.value ? "Date" : "Fecha"}
               <input
                 type="date"
                 id="date"
@@ -126,7 +132,7 @@ export function RecordModal() {
               />
             </label>
             <label class="block" htmlFor="weight">
-              Weight
+              {isEnglish.value ? "Weight" : "Peso"}
               <input
                 type="number"
                 step="any"
@@ -140,7 +146,7 @@ export function RecordModal() {
               />
             </label>
             <label class="block" htmlFor="reps">
-              Reps
+              {isEnglish.value ? "Reps" : "Repeticiones"}
               <input
                 type="number"
                 id="reps"
@@ -154,13 +160,21 @@ export function RecordModal() {
             </label>
             <div class="flex justify-end gap-3">
               {isOpen.value === "edit" && (
-                <button onClick={() => deleteRecord()}>Delete record</button>
+                <button onClick={() => deleteRecord()}>
+                  {isEnglish.value ? "Delete set" : "Eliminar serie"}
+                </button>
               )}
               <button
                 type="submit"
                 class="px-4 py-2 text-white bg-primary-600 rounded-md hover:bg-primary-700"
               >
-                {isOpen.value === "add" ? "Add record" : "Edit record"}
+                {isOpen.value === "add"
+                  ? isEnglish.value
+                    ? "Add set"
+                    : "Añadir serie"
+                  : isEnglish.value
+                  ? "Edit set"
+                  : "Editar serie"}
               </button>
             </div>
           </form>

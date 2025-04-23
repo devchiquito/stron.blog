@@ -1,17 +1,13 @@
 import { Record } from "../interfaces/Record";
+import { isEnglish } from "./Header";
 import RecordsChart from "./RecordsGraph";
 
 export const RecordsSection = ({ records }: { records: Record[] }) => {
-  // Objeto para almacenar el mejor record por cada día
   const bestRecordsByDay: { [key: string]: Record } = {};
 
-  // Iterar sobre los records y determinar el mejor record por día
   records.forEach((record) => {
-    console.log(record);
-    // Convertir la fecha a string para usarla como clave en el objeto
     const dateString = new Date(record.date).toISOString().split("T")[0];
 
-    // Si aún no hay ningún record para este día o el nuevo record es mejor
     if (
       !bestRecordsByDay[dateString] ||
       record.weight > bestRecordsByDay[dateString].weight ||
@@ -22,7 +18,6 @@ export const RecordsSection = ({ records }: { records: Record[] }) => {
     }
   });
 
-  // Filtrar el objeto para obtener solo los mejores records por día como array
   const bestRecordsArray = Object.values(bestRecordsByDay);
 
   return (
@@ -31,8 +26,12 @@ export const RecordsSection = ({ records }: { records: Record[] }) => {
       <table className="table-auto w-full mt-4">
         <thead>
           <tr className="border-b">
-            <th className="px-4 py-2 text-center">Date</th>
-            <th className="px-4 py-2 text-center">Weight (kg)</th>
+            <th className="px-4 py-2 text-center">
+              {isEnglish.value ? "Date" : "Fecha"}
+            </th>
+            <th className="px-4 py-2 text-center">
+              {isEnglish.value ? "Weight" : "Peso"} (kg)
+            </th>
             <th className="px-4 py-2 text-center">Reps</th>
           </tr>
         </thead>

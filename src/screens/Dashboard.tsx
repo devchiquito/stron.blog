@@ -1,3 +1,4 @@
+import { isEnglish } from "../components/Header";
 import { RecordsSection } from "../components/RecordsSection";
 import { Exercise } from "../interfaces/Exercise";
 import { openExerciseModal } from "../modals/ExerciseModal";
@@ -12,7 +13,9 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
   return (
     <div className="space-y-4 w-full">
       <div class={"flex justify-end"}>
-        <button onClick={() => openExerciseModal()}>Add exercise</button>
+        <button onClick={() => openExerciseModal()}>
+          {isEnglish.value ? "Add exercise" : "Añadir Ejercicio"}
+        </button>
       </div>
       {sortedExercises.map((exercise) => (
         <button
@@ -20,20 +23,12 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
           className="p-4 bg-white shadow rounded-lg w-full"
         >
           <div className="flex justify-between items-center">
-            <div class={"flex gap-2 items-center"}>
-              <h2 className="text-xl font-bold text-left">{exercise.name} </h2>
-              <span
-                class={
-                  "text-lime-400 text-[9px] border border-lime-400 rounded p-1"
-                }
-              >
-                Max {exercise.maxWeight}
-              </span>
-            </div>
+            <h2 className="text-xl font-bold text-left">{exercise.name} </h2>
+
             <button
               onClick={() => openRecordModal(exercise.name, exercise.maxWeight)}
             >
-              Add record
+              {isEnglish.value ? "Add set" : "Añadir serie"}
             </button>
           </div>
           <div className="mb-5 flex flex-wrap space-x-2">
@@ -48,7 +43,8 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
           </div>
           <RecordsSection records={exercise.records} />
           <span class={"text-zinc-400 text-xs "}>
-            Last modified: {new Date(exercise.lastModified).toLocaleString()}
+            {isEnglish.value ? "Last modified" : "Ultima modificacion"}:{" "}
+            {new Date(exercise.lastModified).toLocaleString()}
           </span>
         </button>
       ))}
