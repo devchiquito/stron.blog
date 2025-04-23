@@ -9,10 +9,16 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
     (a, b) =>
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
   );
-
   return (
     <div className="space-y-4 w-full">
-      <div class={"flex justify-end"}>
+      {exercises.length === 0 && (
+        <p>
+          {isEnglish.value
+            ? "You don't have any exercises registered yet, you can add exercises with the button below."
+            : "Aun no tienes ejercicios registrados, puedes añadir ejercicios con el boton de abajo."}
+        </p>
+      )}
+      <div class={"flex justify-center"}>
         <button onClick={() => openExerciseModal()}>
           {isEnglish.value ? "Add exercise" : "Añadir Ejercicio"}
         </button>

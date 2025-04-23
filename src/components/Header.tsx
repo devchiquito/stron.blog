@@ -13,7 +13,6 @@ const changeLanguage = () => {
 };
 
 export const Header = () => {
-  console.log(isEnglish.value);
   return (
     <header class="p-3  border-b border-zinc-700 font-bold flex items-center justify-between">
       <div class={"flex gap-2 items-center"}>
