@@ -9,6 +9,13 @@ const date = signal(new Date());
 const weight = signal(0);
 const reps = signal(0);
 const id = signal("");
+console.log({
+  name,
+  date,
+  weight,
+  reps,
+  id,
+});
 
 export const openRecordModal = (exerciseName: string, maxWeight: number) => {
   isOpen.value = "add";
@@ -28,15 +35,21 @@ export const openRecordModalAndEdit = (record: any) => {
 const addNewRecord = () => {
   const newData = appData.value.map((ex) => {
     if (ex.name === name.value) {
-      ex.records.push({
-        date: date.value,
-        name: name.value,
-        reps: reps.value,
-        weight: weight.value,
-        id: crypto.randomUUID(),
-      });
-      ex.lastModified = new Date();
-      ex.maxWeight = Math.max(ex.maxWeight, weight.value);
+      return {
+        ...ex,
+        records: [
+          ...ex.records,
+          {
+            date: date.value,
+            name: name.value,
+            reps: reps.value,
+            weight: weight.value,
+            id: crypto.randomUUID(),
+          },
+        ],
+        lastModified: new Date(),
+        maxWeight: Math.max(ex.maxWeight, weight.value),
+      };
     }
     return ex;
   });

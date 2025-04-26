@@ -16,6 +16,7 @@ interface Props {
 }
 
 export default function RecordsChart({ bestRecordsArray }: Props) {
+  console.log({ bestRecordsArray });
   return (
     <div class={"mx-[-20px] "}>
       <ResponsiveContainer width="100%" height={300}>

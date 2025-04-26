@@ -20,17 +20,19 @@ export const appData = signal<Exercise[]>(
 );
 effect(() => {
   localStorage.setItem("myAppData", JSON.stringify(appData.value));
+  console.log("updating data");
 });
 
 export const updateData = (newData: Exercise[]) => (appData.value = newData);
 
 export function App() {
+  console.log(appData.value);
   return (
     <>
       <Header />
       <div class={"flex justify-center p-5 pb-24 "}>
         {screen.value === "Dashboard" ? (
-          <Dashboard exercises={appData.value} />
+          <Dashboard />
         ) : screen.value === "History" ? (
           <History />
         ) : (

@@ -1,21 +1,25 @@
+import { computed } from "@preact/signals";
+import { appData } from "../app";
 import {
   ButtonLoadExampleData,
   isInDemoMode,
 } from "../components/ButtonLoadExampleData";
 import { isEnglish } from "../components/Header";
 import { RecordsSection } from "../components/RecordsSection";
-import { Exercise } from "../interfaces/Exercise";
 import { openExerciseModal } from "../modals/ExerciseModal";
 import { openRecordModal } from "../modals/RecordModal";
 
-export function Dashboard({ exercises }: { exercises: Exercise[] }) {
-  const sortedExercises = [...exercises].sort(
+const sortedExercises = computed(() =>
+  appData.value.sort(
     (a, b) =>
       new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
-  );
+  )
+);
+
+export function Dashboard() {
   return (
     <div className="space-y-4 fade-in">
-      {exercises.length === 0 && (
+      {sortedExercises.value.length === 0 && (
         <p>
           {isEnglish.value
             ? "You don't have any exercises registered yet, you can add exercises with the button below or you can load example data to see how the app works."
@@ -38,12 +42,12 @@ export function Dashboard({ exercises }: { exercises: Exercise[] }) {
           {isEnglish.value ? "Add exercise" : "Añadir Ejercicio"}
         </button>
       </div>
-      {exercises.length === 0 && (
+      {sortedExercises.value.length === 0 && (
         <div class={"flex justify-center"}>
           <ButtonLoadExampleData />
         </div>
       )}
-      {sortedExercises.map((exercise) => (
+      {sortedExercises.value.map((exercise) => (
         <button
           key={exercise.id}
           className="p-4 bg-white shadow rounded-lg w-full"
