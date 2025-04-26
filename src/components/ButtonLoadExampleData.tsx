@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals";
-import { appData, changeScreen, updateData } from "../app";
+import { changeScreen, updateData } from "../app";
 import { isEnglish } from "./Header";
 
 const showSureButton = signal(false);
