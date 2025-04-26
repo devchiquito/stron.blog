@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals";
-import { appData } from "../app";
+import { appData, updateData } from "../app";
 import { Exercise } from "../interfaces/Exercise";
 import { isEnglish } from "../components/Header";
 
@@ -18,7 +18,7 @@ export const openExerciseModalAndEdit = (exercise: Exercise) => {
 };
 
 const addNewExercise = () => {
-  appData.value = [
+  updateData([
     ...appData.value,
     {
       name: name.value,
@@ -28,7 +28,7 @@ const addNewExercise = () => {
       maxWeight: 0,
       id: crypto.randomUUID(),
     },
-  ];
+  ]);
   isOpen.value = null;
 };
 
@@ -41,7 +41,7 @@ export const editExercise = () => {
     return ex;
   });
 
-  appData.value = result;
+  updateData(result);
   isOpen.value = null;
 };
 

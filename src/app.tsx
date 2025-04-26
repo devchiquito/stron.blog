@@ -22,6 +22,8 @@ effect(() => {
   localStorage.setItem("myAppData", JSON.stringify(appData.value));
 });
 
+export const updateData = (newData: Exercise[]) => (appData.value = newData);
+
 export function App() {
   return (
     <>

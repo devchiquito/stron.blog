@@ -1,12 +1,12 @@
 import { signal } from "@preact/signals";
-import { appData, changeScreen } from "../app";
+import { appData, changeScreen, updateData } from "../app";
 import { isEnglish } from "./Header";
 
 const showSureButton = signal(false);
 export const isInDemoMode = signal(false);
 
 export const loadExampleData = () => {
-  appData.value = [
+  const exampleData = [
     {
       name: "Press de banca",
       tags: ["pecho", "fuerza"],
@@ -156,6 +156,7 @@ export const loadExampleData = () => {
       id: "a4",
     },
   ];
+  updateData(exampleData);
   changeScreen("Dashboard");
   isInDemoMode.value = true;
   showSureButton.value = false;

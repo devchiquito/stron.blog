@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals";
-import { appData } from "../app";
+import { appData, updateData } from "../app";
 import { isEnglish } from "../components/Header";
 
 const isOpen = signal<null | "add" | "edit">(null);
@@ -26,7 +26,7 @@ export const openRecordModalAndEdit = (record: any) => {
 };
 
 const addNewRecord = () => {
-  appData.value = appData.value.map((ex) => {
+  const newData = appData.value.map((ex) => {
     if (ex.name === name.value) {
       ex.records.push({
         date: date.value,
@@ -40,11 +40,12 @@ const addNewRecord = () => {
     }
     return ex;
   });
+  updateData(newData);
   isOpen.value = null;
 };
 
 const editRecord = () => {
-  appData.value = appData.value.map((ex) => {
+  const newData = appData.value.map((ex) => {
     if (ex.name === name.value) {
       ex.records = ex.records.map((record) => {
         if (record.id === id.value) {
@@ -58,17 +59,19 @@ const editRecord = () => {
     }
     return ex;
   });
+  updateData(newData);
   isOpen.value = null;
 };
 
 const deleteRecord = () => {
-  appData.value = appData.value.map((ex) => {
+  const newData = appData.value.map((ex) => {
     if (ex.name === name.value) {
       ex.records = ex.records.filter((record) => record.id !== id.value);
       ex.lastModified = new Date();
     }
     return ex;
   });
+  updateData(newData);
   isOpen.value = null;
 };
 

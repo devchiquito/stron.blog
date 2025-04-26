@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals";
-import { appData } from "../app";
+import { appData, updateData } from "../app";
 import { SettingsJSONEdit } from "../components/SettingsJSONEdit";
 import { openExerciseModalAndEdit } from "../modals/ExerciseModal";
 import { isEnglish } from "../components/Header";
@@ -11,8 +11,8 @@ const showSureExercise = signal(false);
 const nameExerciseToDelete = signal("");
 
 const deleteExercise = () => {
-  appData.value = appData.value.filter(
-    (ex) => ex.name !== nameExerciseToDelete.value
+  updateData(
+    appData.value.filter((ex) => ex.name !== nameExerciseToDelete.value)
   );
   localStorage.setItem("myAppData", JSON.stringify(appData.value));
   window.location.reload();

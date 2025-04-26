@@ -20,7 +20,7 @@ export const ButtonDeleteAllData = () => (
     </button>
     {showSureButton.value && (
       <div
-        class="fixed inset-0 z-10 bg-[rgba(0,0,0,0.8)] flex items-center justify-center"
+        class="fixed inset-0 z-10 bg-[rgba(0,0,0,0.8)] flex items-center justify-center "
         role="dialog"
         aria-modal="true"
       >
