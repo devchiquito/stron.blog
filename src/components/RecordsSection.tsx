@@ -1,4 +1,3 @@
-import { computed } from "@preact/signals";
 import { Serie } from "../interfaces/Record";
 import { isEnglish } from "./Header";
 import RecordsChart from "./RecordsGraph";
