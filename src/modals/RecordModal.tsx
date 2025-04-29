@@ -60,15 +60,22 @@ const addNewRecord = () => {
 const editRecord = () => {
   const newData = appData.value.map((ex) => {
     if (ex.name === name.value) {
-      ex.records = ex.records.map((record) => {
+      const updatedRecords = ex.records.map((record) => {
         if (record.id === id.value) {
-          record.date = date.value;
-          record.weight = weight.value;
-          record.reps = reps.value;
+          return {
+            ...record,
+            date: date.value,
+            weight: weight.value,
+            reps: reps.value,
+          };
         }
         return record;
       });
-      ex.lastModified = new Date();
+      return {
+        ...ex,
+        records: updatedRecords,
+        lastModified: new Date(),
+      };
     }
     return ex;
   });

@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { Serie } from "../interfaces/Record";
+import { Serie } from "../interfaces/Serie";
 import { isEnglish } from "./Header";
 
 interface Props {

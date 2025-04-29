@@ -1,4 +1,4 @@
-import { Serie } from "../interfaces/Record";
+import { Serie } from "../interfaces/Serie";
 import { isEnglish } from "./Header";
 import RecordsChart from "./RecordsGraph";
 

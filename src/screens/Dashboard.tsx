@@ -8,6 +8,7 @@ import { isEnglish } from "../components/Header";
 import { RecordsSection } from "../components/RecordsSection";
 import { openExerciseModal } from "../modals/ExerciseModal";
 import { openRecordModal } from "../modals/RecordModal";
+import { CirclePlus } from "lucide-react";
 
 const sortedExercises = computed(() =>
   appData.value.sort(
@@ -37,9 +38,9 @@ export function Dashboard() {
       <div class={"flex justify-center"}>
         <button
           onClick={() => openExerciseModal()}
-          class="text-lime-500 border border-lime-500"
+          class="text-lime-500 border border-lime-500 inline-flex gap-2"
         >
-          {isEnglish.value ? "Add exercise" : "Añadir Ejercicio"}
+          <CirclePlus /> {isEnglish.value ? "Add exercise" : "Añadir Ejercicio"}
         </button>
       </div>
       {sortedExercises.value.length === 0 && (
